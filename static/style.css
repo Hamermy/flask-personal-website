@@ -1,0 +1,794 @@
+/* ==================== 全局变量 & 基础样式 ==================== */
+:root {
+    --pink-light: #fff0f5;
+    --pink: #ff85a2;
+    --pink-dark: #ff5c8a;
+    --purple-light: #e8d5f5;
+    --purple: #b388eb;
+    --blue-light: #d4f1f9;
+    --lavender: #c3aed6;
+    --text-dark: #4a4a6a;
+    --text-light: #7a7a9a;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --shadow-kawaii: 0 8px 32px rgba(255, 133, 162, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans SC', 'Zen Maru Gothic', sans-serif;
+    background: linear-gradient(135deg, #fff5f9 0%, #f0e6ff 50%, #e6f7ff 100%);
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+/* ==================== 鼠标点击特效 ==================== */
+#click-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99999;
+}
+
+.click-emoji {
+    position: absolute;
+    font-size: 1.5em;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -120%) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -200%) scale(0.8);
+    }
+}
+
+/* ==================== 樱花飘落 ==================== */
+.sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+.sakura-petal {
+    position: absolute;
+    top: -20px;
+    animation: sakuraFall linear forwards;
+    pointer-events: none;
+}
+
+@keyframes sakuraFall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(50vh) rotate(180deg) translateX(50px);
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg) translateX(-30px);
+        opacity: 0;
+    }
+}
+
+/* ==================== 导航栏 ==================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 2px solid rgba(255, 133, 162, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.navbar-scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 20px rgba(255, 133, 162, 0.15);
+    border-bottom-color: rgba(255, 133, 162, 0.2);
+}
+
+.nav-logo {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--pink-dark);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 400;
+    padding: 5px 12px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background: var(--pink-light);
+    color: var(--pink-dark);
+}
+
+/* 访客计数徽章 */
+.visitor-badge {
+    background: linear-gradient(135deg, var(--pink-light), var(--purple-light));
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    color: var(--text-dark);
+    border: 1px solid rgba(255, 133, 162, 0.2);
+}
+
+/* ==================== Hero 首页区域 ==================== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(180deg,
+        #ffe6f0 0%, #fff0f5 30%, #f5e6ff 70%, #fff5f9 100%);
+    padding-top: 80px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.avatar-frame {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: var(--shadow-kawaii);
+    position: relative;
+    z-index: 2;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-ring {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    border: 3px dashed var(--pink);
+    animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.hero-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.highlight {
+    background: linear-gradient(120deg, var(--pink) 0%, var(--purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.2em;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.hero-motto {
+    font-size: 1.1em;
+    color: var(--purple);
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+/* Hero 按钮组 */
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-kawaii {
+    display: inline-block;
+    padding: 12px 36px;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(255, 92, 138, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-kawaii:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 30px rgba(255, 92, 138, 0.5);
+}
+
+.btn-outline {
+    background: white;
+    color: var(--pink-dark);
+    border: 2px solid var(--pink);
+    box-shadow: 0 4px 15px rgba(255, 133, 162, 0.2);
+}
+
+.btn-outline:hover {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: white;
+    border-color: transparent;
+}
+
+.wave-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.wave-decoration svg {
+    display: block;
+    width: 100%;
+    height: 80px;
+}
+
+/* ==================== 通用 Section ==================== */
+.section {
+    padding: 80px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.section-desc {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 30px;
+    font-size: 1em;
+}
+
+/* ==================== 关于我 ==================== */
+.about-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow-kawaii);
+    border: 2px solid rgba(255, 133, 162, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-deco {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.about-text {
+    font-size: 1.1em;
+    line-height: 2;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.hobby-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.tag {
+    padding: 8px 18px;
+    background: linear-gradient(135deg, var(--pink-light), var(--purple-light));
+    border-radius: 20px;
+    font-size: 0.95em;
+    color: var(--text-dark);
+    border: 1px solid rgba(255, 133, 162, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.tag:hover {
+    transform: scale(1.1) rotate(-2deg);
+}
+
+/* ==================== 技能树 ==================== */
+.skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.skill-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px 25px;
+    box-shadow: 0 4px 16px rgba(255, 133, 162, 0.1);
+    border: 1px solid rgba(255, 133, 162, 0.1);
+}
+
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.skill-name { font-weight: 700; }
+.skill-percent { color: var(--pink-dark); font-weight: 700; }
+
+.skill-bar {
+    height: 14px;
+    background: #f0e6f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    border-radius: 10px;
+    transition: width 1.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+}
+
+.skill-star {
+    font-size: 0.7em;
+    color: white;
+    white-space: nowrap;
+}
+
+/* ==================== 时间线 ==================== */
+.timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--pink), var(--purple), var(--blue-light));
+    border-radius: 3px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 35px;
+    padding-left: 25px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -32px;
+    top: 5px;
+    font-size: 1.2em;
+}
+
+.timeline-content {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(255, 133, 162, 0.1);
+    border: 1px solid rgba(255, 133, 162, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.timeline-content:hover { transform: translateX(5px); }
+
+.timeline-year {
+    display: inline-block;
+    padding: 3px 14px;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: white;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.timeline-content p {
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* ==================== 🌟 留言板（新增！） ==================== */
+.message-section {
+    max-width: 100%;
+    padding: 80px 20px;
+    /* 背景图在 HTML 的 <style> 中动态设置 */
+}
+
+.message-section .section-title,
+.message-section .section-desc {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 留言表单卡片 */
+.message-form-card {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: var(--shadow-kawaii);
+    border: 2px solid rgba(255, 133, 162, 0.15);
+}
+
+.message-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.form-group label {
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 0.95em;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 12px 18px;
+    border: 2px solid rgba(255, 133, 162, 0.2);
+    border-radius: 14px;
+    font-size: 1em;
+    font-family: inherit;
+    color: var(--text-dark);
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--pink);
+    box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.15);
+    background: white;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #c0b0c8;
+}
+
+.char-count {
+    position: absolute;
+    right: 15px;
+    bottom: 12px;
+    font-size: 0.8em;
+    color: var(--text-light);
+}
+
+.btn-submit {
+    align-self: center;
+    font-size: 1.05em;
+    padding: 14px 40px;
+}
+
+/* 留言列表 */
+.message-list {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.no-messages {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-light);
+    font-size: 1.1em;
+}
+
+/* 单条留言卡片 */
+.message-card {
+    display: flex;
+    gap: 16px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 22px 25px;
+    box-shadow: 0 4px 16px rgba(255, 133, 162, 0.08);
+    border: 1px solid rgba(255, 133, 162, 0.1);
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 133, 162, 0.15);
+}
+
+/* 留言头像 */
+.msg-avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2em;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.msg-body {
+    flex: 1;
+}
+
+.msg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.msg-name {
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.msg-time {
+    font-size: 0.8em;
+    color: var(--text-light);
+}
+
+.msg-content {
+    line-height: 1.7;
+    color: var(--text-dark);
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.msg-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.like-btn {
+    background: none;
+    border: 1px solid rgba(255, 133, 162, 0.3);
+    border-radius: 20px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.like-btn:hover {
+    background: var(--pink-light);
+    border-color: var(--pink);
+    color: var(--pink-dark);
+}
+
+.like-btn.liked {
+    background: var(--pink-light);
+    border-color: var(--pink);
+    color: var(--pink-dark);
+    cursor: default;
+}
+
+/* ==================== 联系我 ==================== */
+.contact-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: var(--shadow-kawaii);
+    border: 2px solid rgba(255, 133, 162, 0.15);
+}
+
+.contact-card p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    color: var(--text-dark);
+}
+
+.contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: white;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1em;
+    border: 2px solid rgba(255, 133, 162, 0.3);
+    transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: white;
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 92, 138, 0.3);
+}
+
+.contact-icon {
+    vertical-align: middle;
+}
+
+/* GitHub 按钮悬停特殊颜色 */
+.contact-github:hover {
+    background: #333 !important;
+}
+
+/* B站按钮悬停特殊颜色 */
+.contact-bilibili:hover {
+    background: #fb7299 !important;
+}
+
+/* ==================== 页脚 ==================== */
+.footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+    border-top: 1px solid rgba(255, 133, 162, 0.15);
+}
+
+.footer-quote {
+    margin-top: 10px;
+    font-style: italic;
+    color: var(--purple);
+}
+
+/* ==================== 响应式适配 ==================== */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 20px;
+    }
+
+    .nav-links {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .visitor-badge {
+        display: none;
+    }
+
+    .hero-title {
+        font-size: 1.8em;
+    }
+
+    .about-card,
+    .contact-card,
+    .message-form-card {
+        padding: 25px;
+    }
+
+    .section {
+        padding: 60px 15px;
+    }
+
+    .message-card {
+        padding: 16px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}}

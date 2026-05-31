@@ -1,0 +1,171 @@
+<!-- templates/index1.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ info.name }} の 个人主页 🌸</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ============ 飘落的樱花 ============ -->
+    <div class="sakura-container" id="sakura"></div>
+
+    <!-- ============ 导航栏 ============ -->
+    <nav class="navbar">
+        <div class="nav-logo">🌸 {{ info.name }}</div>
+        <ul class="nav-links">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#skills">技能</a></li>
+            <li><a href="#timeline">时间线</a></li>
+            <li><a href="#contact">联系我</a></li>
+        </ul>
+    </nav>
+
+    <!-- ============ 首页 Hero 区域 ============ -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="avatar-frame">
+                <div class="avatar">
+                    <img src="{{ info.avatar }}" alt="我的头像">>
+                </div>
+                <div class="avatar-ring"></div>
+            </div>
+            <h1 class="hero-title">
+                こんにちは！我是 <span class="highlight">{{ info.name }}</span>
+            </h1>
+            <p class="hero-subtitle">{{ info.school }} · {{ info.major }}</p>
+            <p class="hero-motto">「{{ info.motto }}」</p>
+            <a href="#about" class="btn-kawaii">了解更多 ↓</a>
+        </div>
+        <div class="wave-decoration">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,64 C360,120 720,0 1080,64 C1260,96 1380,80 1440,64 L1440,120 L0,120 Z"
+                      fill="#fff5f9"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ============ 关于我 ============ -->
+    <section id="about" class="section about-section">
+        <h2 class="section-title">✨ 关于我</h2>
+        <div class="about-card">
+            <div class="about-deco">🎀</div>
+            <p class="about-text">
+                我是<strong>北京体育大学 · {{ info.major }}</strong>专业的学生，
+                对运动康复充满热情，同时也是一个二次元爱好者！
+                我希望通过专业的运动康复知识，帮助更多人重返运动、拥抱健康。
+                除了专业课，我还在学习编程、心理学和投资，
+                努力成为一个多元发展的人～
+            </p>
+            <div class="hobby-tags">
+                {% for hobby in info.hobbies %}
+                <span class="tag">🏷️ {{ hobby }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 技能树 ============ -->
+    <section id="skills" class="section skills-section">
+        <h2 class="section-title">⚡ 技能树</h2>
+        <div class="skills-grid">
+            {% for skill in info.skills %}
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-name">{{ skill.name }}</span>
+                    <span class="skill-percent">{{ skill.level }}%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-width="{{ skill.level }}%" style="width: 0%">
+                        {% if skill.level >= 90 %}
+                        <span class="skill-star">⭐ MAX</span>
+                        {% elif skill.level <= 20 %}
+                        <span class="skill-star">🌱 入门中</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ============ 时间线 ============ -->
+    <section id="timeline" class="section timeline-section">
+        <h2 class="section-title">📖 成长时间线</h2>
+        <div class="timeline">
+            {% for item in info.timeline %}
+            <div class="timeline-item">
+                <div class="timeline-dot">🌟</div>
+                <div class="timeline-content">
+                    <span class="timeline-year">{{ item.year }}</span>
+                    <p>{{ item.event }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ============ 联系我 ============ -->
+    <section id="contact" class="section contact-section">
+        <h2 class="section-title">💌 联系我</h2>
+        <div class="contact-card">
+            <p>欢迎和我交流运动康复、二次元话题或者Python学习！</p>
+            <div class="contact-links">
+                <a href="mailto:your@email.com" class="contact-btn">📧 邮箱</a>
+                <a href="#" class="contact-btn">💬 微信</a>
+                <a href="https://github.com" class="contact-btn" target="_blank">🐙 GitHub</a>
+                <a href="#" class="contact-btn">📺 B站</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 页脚 ============ -->
+    <footer class="footer">
+        <p>Made with 💖 & Python Flask by {{ info.name }} © 2026</p>
+        <p class="footer-quote">「努力成为温柔又强大的人」</p>
+    </footer>
+
+    <!-- ============ JavaScript ============ -->
+    <script>
+        // 樱花飘落
+        function createSakura() {
+            const container = document.getElementById('sakura');
+            const petal = document.createElement('div');
+            petal.classList.add('sakura-petal');
+            petal.innerHTML = '🌸';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            petal.style.animationDelay = Math.random() * 2 + 's';
+            petal.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            petal.style.opacity = Math.random() * 0.6 + 0.4;
+            container.appendChild(petal);
+            setTimeout(() => petal.remove(), 8000);
+        }
+        setInterval(createSakura, 300);
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 技能条滚动动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.dataset.width;
+                }
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('.skill-fill').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
